@@ -1,0 +1,77 @@
+.App {
+  text-align: center;
+  padding: 20px;
+  font-family: Arial, sans-serif;
+}
+
+.item-form {
+  margin: 20px 0;
+  padding: 20px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  max-width: 500px;
+  margin-left: auto;
+  margin-right: auto;
+  background-color: #f9f9f9;
+}
+
+.item-form input {
+  display: block;
+  margin: 10px auto;
+  padding: 10px;
+  width: 80%;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.item-form button {
+  margin: 5px;
+  padding: 10px 15px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  background-color: #4CAF50;
+  color: white;
+}
+
+.item-form button:hover {
+  background-color: #45a049;
+}
+
+.items-list ul {
+  list-style-type: none;
+  padding: 0;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.items-list li {
+  border: 1px solid #eee;
+  margin: 10px 0;
+  padding: 15px;
+  border-radius: 5px;
+  background-color: #fff;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.items-list button {
+  margin: 0 5px;
+  padding: 5px 10px;
+  border: none;
+  border-radius: 3px;
+  cursor: pointer;
+}
+
+.items-list button:first-child {
+  background-color: #2196F3;
+  color: white;
+}
+
+.items-list button:last-child {
+  background-color: #f44336;
+  color: white;
+}
+
+.items-list button:hover {
+  opacity: 0.8;
+}

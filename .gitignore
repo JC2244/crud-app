@@ -1,0 +1,89 @@
+# ==============================
+# Secrets and environment files
+# ==============================
+.env
+.env.*
+!.env.example
+!.env.sample
+**/.env
+**/.env.*
+!**/.env.example
+!**/.env.sample
+.aws/
+**/.aws/
+*.pem
+*.key
+secrets/
+**/secrets/
+
+# ==============================
+# Databases and database backups
+# ==============================
+*.db
+*.sqlite
+*.sqlite3
+*.db-journal
+*.bak
+
+# ==============================
+# Python
+# ==============================
+__pycache__/
+*.py[cod]
+*.pyo
+.venv/
+venv/
+env/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.coverage
+htmlcov/
+
+# ==============================
+# Terraform — private infrastructure
+# ==============================
+**/.terraform/*
+*.tfstate
+*.tfstate.*
+*.tfplan
+*.tfplan.*
+crash.log
+crash.*.log
+*.tfvars
+*.tfvars.json
+override.tf
+override.tf.json
+*_override.tf
+*_override.tf.json
+
+# ==============================
+# Node.js and React
+# ==============================
+node_modules/
+**/node_modules/
+build/
+dist/
+coverage/
+.npm/
+
+# ==============================
+# Logs and operating system files
+# ==============================
+*.log
+.DS_Store
+Thumbs.db
+Desktop.ini
+
+# ==============================
+# Editors
+# ==============================
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# ==============================
+# Keep infrastructure deployment workflows out of the public app repository
+# ==============================
+/crud-app/.github/workflows/
