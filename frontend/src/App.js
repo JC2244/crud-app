@@ -3,7 +3,7 @@ import axios from 'axios';
 import './App.css';
 
 // Base URL for our backend API
-const API_BASE = "http://localhost:8000";
+const API_BASE = process.env.REACT_APP_API_URL ?? `http://${window.location.hostname}:8000`;
 
 function App() {
   // State variables to manage our data

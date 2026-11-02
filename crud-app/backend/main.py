@@ -24,7 +24,8 @@ app = FastAPI()
 # Add CORS middleware to allow React frontend to connect
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["http://localhost:3000"],
+    # Local dev server, or a page served over http from a plain IP (the VM's nginx)
+    allow_origin_regex=r"http://(localhost:3000|\d{1,3}(\.\d{1,3}){3})",
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
