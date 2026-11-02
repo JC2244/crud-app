@@ -1,0 +1,48 @@
+name: App deployment
+
+on:
+  workflow_dispatch:              # a "Run workflow" button on GitHub
+
+concurrency:
+  group: terraform                # deploy and destroy never overlap
+  cancel-in-progress: false
+
+permissions:
+  contents: read
+
+jobs:
+  tests:
+    uses: ./.github/workflows/ci.yml    # run the tests first
+
+  deploy:
+    needs: tests                        # deploy only if the tests passed
+    runs-on: ubuntu-latest
+    env:
+      AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+      AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+      AWS_SESSION_TOKEN: ${{ secrets.AWS_SESSION_TOKEN }}
+    defaults:
+      run:
+        working-directory: infra
+    steps:
+      - name: Check out the code
+        uses: actions/checkout@v7
+
+      - name: Set up Terraform
+        uses: hashicorp/setup-terraform@v4
+        with:
+          terraform_wrapper: false      # plain output, so the IP can be read below
+
+      - name: Terraform init
+        run: terraform init -input=false
+
+      - name: Terraform plan
+        run: terraform plan -input=false
+
+      - name: Terraform apply
+        run: terraform apply -no-color -auto-approve
+
+      - name: Show the backend address
+        run: |
+          IP=$(terraform output -raw public_ip)
+          echo "Backend: http://$IP/docs (allow about 3 minutes for the VM to install the app)" >> "$GITHUB_STEP_SUMMARY"
