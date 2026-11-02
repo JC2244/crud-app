@@ -13,5 +13,5 @@ variable "instance_name" {
 variable "instance_type" {
   description = "The EC2 instance's type"
   type        = string
-  default     = "t2.micro"		# Standard free tier type
+  default     = "t3.small"		# 2 GB of RAM, so the VM can build the front-end
 }

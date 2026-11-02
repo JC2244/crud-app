@@ -36,9 +36,17 @@ resource "aws_security_group" "server_sg" {
   description = "Allow inbound HTTP and SSH traffic"
 
   ingress {
-    description = "HTTP traffic"
+    description = "Front-end (nginx)"
     from_port   = 80
     to_port     = 80
+    protocol    = "tcp"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+
+  ingress {
+    description = "Backend API (uvicorn)"
+    from_port   = 8000
+    to_port     = 8000
     protocol    = "tcp"
     cidr_blocks = ["0.0.0.0/0"]
   }
@@ -66,8 +74,8 @@ resource "aws_instance" "server" {
 
   vpc_security_group_ids = [aws_security_group.server_sg.id]
 
-  # templatefile() fills in ${app_port}; file() would leave it empty and uvicorn would not start
-  user_data                   = templatefile("${path.module}/user_data.tpl", { app_port = 80 })
+  # templatefile() fills in ${backend_port}; file() would leave it empty and uvicorn would not start
+  user_data                   = templatefile("${path.module}/user_data.tpl", { backend_port = 8000 })
 
   # user_data only runs on first boot, so rebuild the VM whenever the script changes
   user_data_replace_on_change = true
@@ -81,4 +89,14 @@ resource "aws_instance" "server" {
 output "public_ip" {
   value       = "${aws_instance.server.public_ip}"
   description = "The public IP of your application"
+}
+
+output "frontend_url" {
+  value       = "http://${aws_instance.server.public_ip}"
+  description = "The front-end, served by nginx"
+}
+
+output "api_docs_url" {
+  value       = "http://${aws_instance.server.public_ip}:8000/docs"
+  description = "The backend's Swagger page"
 }

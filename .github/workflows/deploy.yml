@@ -42,7 +42,8 @@ jobs:
       - name: Terraform apply
         run: terraform apply -no-color -auto-approve
 
-      - name: Show the backend address
+      - name: Show the addresses
         run: |
           IP=$(terraform output -raw public_ip)
-          echo "Backend: http://$IP/docs (allow about 3 minutes for the VM to install the app)" >> "$GITHUB_STEP_SUMMARY"
+          echo "Front-end: http://$IP" >> "$GITHUB_STEP_SUMMARY"
+          echo "API docs: http://$IP:8000/docs (allow about 5 minutes for the VM to install everything)" >> "$GITHUB_STEP_SUMMARY"
